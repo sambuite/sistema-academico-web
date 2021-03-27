@@ -1,13 +1,9 @@
-import HeaderMenu from '../../components/HeaderMenu';
-
 // import * as S from './styles';
 
+import Layout from '../../components/Layout';
+
 const Home = () => {
-  return (
-    <div>
-      <HeaderMenu />
-    </div>
-  );
+  return <Layout />;
 };
 
 export default Home;
