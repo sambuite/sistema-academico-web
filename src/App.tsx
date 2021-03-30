@@ -7,6 +7,7 @@ import {
   Theme,
 } from '@material-ui/core/styles';
 import { ThemeProvider } from 'styled-components';
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
   const theme = useTheme();
@@ -15,8 +16,10 @@ function App() {
     <MuiThemeProvider theme={theme}>
       <ThemeProvider theme={theme as Theme}>
         <StylesProvider injectFirst>
-          <GlobalStyle />
-          <Routes />
+          <AuthProvider>
+            <GlobalStyle />
+            <Routes />
+          </AuthProvider>
         </StylesProvider>
       </ThemeProvider>
     </MuiThemeProvider>

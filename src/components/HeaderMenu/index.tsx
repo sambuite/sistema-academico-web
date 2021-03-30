@@ -3,7 +3,6 @@ import Typography from '@material-ui/core/Typography';
 import { AppBar, Menu, MenuItem, Toolbar } from '@material-ui/core';
 
 import * as S from './styles';
-import { Link } from 'react-router-dom';
 
 const HeaderMenu = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

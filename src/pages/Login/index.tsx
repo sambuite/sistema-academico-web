@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Layout from '../../components/Layout';
 import * as S from './styles';
 import TextField from '@material-ui/core/TextField';
 import { Button, Typography } from '@material-ui/core';
-import api from '../../services/api';
+import { AuthContext } from '../../context/AuthContext';
 
-const RegisterUsers = () => {
-  const [name, setName] = useState('');
+const Login = () => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
+
+  const { handleLogin } = useContext(AuthContext);
 
   const handleChange = (
     ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
@@ -16,9 +17,6 @@ const RegisterUsers = () => {
     const name = ev.target.name;
     const value = ev.target.value;
     switch (name) {
-      case 'name':
-        setName(value);
-        break;
       case 'login':
         setLogin(value);
         break;
@@ -30,7 +28,11 @@ const RegisterUsers = () => {
 
   const handleSubmit = async (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
-    await api.post('/register-user', { name, login, password });
+    try {
+      await handleLogin({ login, password });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -39,16 +41,9 @@ const RegisterUsers = () => {
         <S.StyledCard>
           <S.StyledCardContent>
             <Typography variant="h5" component="h2" className="form-title">
-              Cadastro
+              Login
             </Typography>
             <form noValidate autoComplete="off" onSubmit={handleSubmit}>
-              <TextField
-                className="outlined-basic"
-                label="Nome"
-                name="name"
-                variant="outlined"
-                onChange={handleChange}
-              />
               <TextField
                 className="outlined-basic"
                 label="Login"
@@ -65,7 +60,7 @@ const RegisterUsers = () => {
                 onChange={handleChange}
               />
               <Button variant="contained" color="primary" type="submit">
-                Cadastrar
+                Entrar
               </Button>
             </form>
           </S.StyledCardContent>
@@ -75,4 +70,4 @@ const RegisterUsers = () => {
   );
 };
 
-export default RegisterUsers;
+export default Login;

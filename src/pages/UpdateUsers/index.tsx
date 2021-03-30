@@ -4,11 +4,14 @@ import * as S from './styles';
 import TextField from '@material-ui/core/TextField';
 import { Button, Typography } from '@material-ui/core';
 import api from '../../services/api';
+import { useLocation } from 'react-router';
 
-const RegisterUsers = () => {
+const UpdateUsers = () => {
   const [name, setName] = useState('');
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
+
+  const { state } = useLocation();
 
   const handleChange = (
     ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
@@ -30,7 +33,8 @@ const RegisterUsers = () => {
 
   const handleSubmit = async (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
-    await api.post('/register-user', { name, login, password });
+    const id = (state as { id: string }).id;
+    await api.put(`/edit-user/${id}`, { name, login, password });
   };
 
   return (
@@ -39,7 +43,7 @@ const RegisterUsers = () => {
         <S.StyledCard>
           <S.StyledCardContent>
             <Typography variant="h5" component="h2" className="form-title">
-              Cadastro
+              Atualizar
             </Typography>
             <form noValidate autoComplete="off" onSubmit={handleSubmit}>
               <TextField
@@ -65,7 +69,7 @@ const RegisterUsers = () => {
                 onChange={handleChange}
               />
               <Button variant="contained" color="primary" type="submit">
-                Cadastrar
+                Atualizar
               </Button>
             </form>
           </S.StyledCardContent>
@@ -75,4 +79,4 @@ const RegisterUsers = () => {
   );
 };
 
-export default RegisterUsers;
+export default UpdateUsers;
