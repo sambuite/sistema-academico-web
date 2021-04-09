@@ -10,6 +10,8 @@ import {
   TableHead,
   TableRow,
   Paper,
+  TableFooter,
+  TablePagination,
 } from '@material-ui/core';
 import api from '../../services/api';
 import { useHistory } from 'react-router';
@@ -22,6 +24,8 @@ type User = {
 
 const UsersList = () => {
   const [users, setUsers] = useState<User[]>([] as User[]);
+
+  const [pageCurrent, setPageCurrent] = useState(0);
 
   const history = useHistory();
 
@@ -43,14 +47,14 @@ const UsersList = () => {
   useEffect(() => {
     const listUsers = async () => {
       try {
-        const { data } = await api.get('/users');
+        const { data } = await api.get(`/users?skip=3&take=${pageCurrent * 3}`);
         setUsers(data);
       } catch (error) {
         console.log(error);
       }
     };
     listUsers();
-  }, []);
+  }, [pageCurrent]);
 
   return (
     <S.Container>
@@ -93,6 +97,19 @@ const UsersList = () => {
               </TableRow>
             ))}
           </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                count={-1}
+                rowsPerPage={3}
+                page={pageCurrent}
+                onChangePage={(ev, page) => {
+                  setPageCurrent(page);
+                }}
+                rowsPerPageOptions={[0]}
+              />
+            </TableRow>
+          </TableFooter>
         </Table>
       </TableContainer>
     </S.Container>

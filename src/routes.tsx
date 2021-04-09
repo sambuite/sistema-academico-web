@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import { useContext } from 'react';
 import { AuthContext } from './context/AuthContext';
 import history from './history';
+import RegisterProfessors from './pages/RegisterProfessors';
 
 type CustomRouteProps = RouteProps & {
   isPrivate?: boolean;
@@ -33,6 +34,7 @@ const Routes = () => {
       <CustomRoute component={Home} path="/" exact />
       <CustomRoute component={Login} path="/login" />
       <CustomRoute component={RegisterUsers} path="/register-users" />
+      <CustomRoute component={RegisterProfessors} path="/register-professors" />
       <CustomRoute isPrivate component={ListUsers} path="/list-users" />
       <CustomRoute isPrivate component={UpdateUsers} path="/update-users" />
     </Router>

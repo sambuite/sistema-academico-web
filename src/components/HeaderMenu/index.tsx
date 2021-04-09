@@ -46,10 +46,15 @@ const HeaderMenu = () => {
                 onClose={handleClose}
               >
                 <S.LinkStyled to="/register-users">
-                  <MenuItem onClick={handleClose}>Cadastrar</MenuItem>
+                  <MenuItem onClick={handleClose}>Cadastrar Usuários</MenuItem>
+                </S.LinkStyled>
+                <S.LinkStyled to="/register-professors">
+                  <MenuItem onClick={handleClose}>
+                    Cadastrar Professores
+                  </MenuItem>
                 </S.LinkStyled>
                 <S.LinkStyled to="/list-users">
-                  <MenuItem onClick={handleClose}>Listar</MenuItem>
+                  <MenuItem onClick={handleClose}>Listar Usuários</MenuItem>
                 </S.LinkStyled>
               </Menu>
             </div>
